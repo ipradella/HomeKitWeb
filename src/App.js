@@ -10,7 +10,7 @@ function generateDataTemperature(){
 
   for(var min = 0; min < totalMinuts; min++){ 
     if(Number.isInteger(min/180))
-      data.push({name: min/60, t: Math.random()*23});
+      data.push({name: min/60 + ':00', t: Math.random()*23});
     else if(Number.isInteger(min/60))
       data.push({t: Math.random()*23});
   };
@@ -29,7 +29,7 @@ function App() {
       <body className="App-body">
         <LineChart className="App-chart" width={1000} height={500} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
           <Line type="monotone" dataKey="t" stroke="#8884d8" />
-          <CartesianGrid stroke="#ccc" strokeDasharray="4 0" />
+          <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#eeeeee" />
           <XAxis dataKey="name" label={{ value: 'Hours', position: 'insideBottom' }} />
           <YAxis label={{ value: '°t', angle: -90, position: 'insideLeft' }} />
         </LineChart>
