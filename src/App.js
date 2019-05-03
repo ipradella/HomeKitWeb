@@ -1,7 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { LineChart, Line, CartesianGrid,  XAxis, YAxis } from 'recharts';
+import { LineChart, Line, Legend, CartesianGrid,  XAxis, YAxis } from 'recharts';
+import DatePicker from 'react-datepicker';
+
 
 function generateDataTemperature(){
   const totalHours = 24;
@@ -10,13 +12,17 @@ function generateDataTemperature(){
 
   for(var min = 0; min < totalMinuts; min++){ 
     if(Number.isInteger(min/180))
-      data.push({name: min/60 + ':00', t: Math.random()*23});
+      data.push({name: min/60 + ':00', Int: randomNumber(16,23), Ext: randomNumber(5,10)});
     else if(Number.isInteger(min/60))
-      data.push({t: Math.random()*23});
+      data.push({Int: randomNumber(16,23), Ext: randomNumber(5,10)});
   };
 
   return data;
 } 
+
+function randomNumber(min, max){
+  return Math.floor(Math.random()*(max-min+1)+min)
+}
 
 const data = generateDataTemperature();
 
@@ -25,13 +31,23 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary button-background">Day</button>
+          <button type="button" class="btn btn-secondary button-background">Month</button>
+          <button type="button" class="btn btn-secondary button-background">Year</button>
+          <button type="button" class="btn btn-secondary button-background">Years</button>
+        </div>
+        <DatePicker/>
       </header>
       <body className="App-body">
-        <LineChart className="App-chart" width={1000} height={500} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-          <Line type="monotone" dataKey="t" stroke="#8884d8" />
-          <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#eeeeee" />
-          <XAxis dataKey="name" label={{ value: 'Hours', position: 'insideBottom' }} />
-          <YAxis label={{ value: '°t', angle: -90, position: 'insideLeft' }} />
+
+        <LineChart className="App-chart" width={1000} height={500} data={data}>
+          <Line type="monotone" dataKey="Int" stroke="yellow" />
+          <Line type="monotone" dataKey="Ext" stroke="lightblue" />
+          <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="lightgrey" />
+          <XAxis dataKey="name" label={{ value: 'Hours', position: 'bottom' }} stroke="#ffffff" opacity={100} />
+          <YAxis label={{ value: '°C', angle: -90, position: 'left' }} stroke="#ffffff" opacity={100}/>
+          <Legend verticalAlign="top" height={36}/>
         </LineChart>
       </body>
     </div>

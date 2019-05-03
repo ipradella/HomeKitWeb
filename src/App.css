@@ -19,6 +19,15 @@
   color: white;
 }
 
+.button-background {background-color:#ADC7C9;}
+
+.App-toolbar-Graph {
+  display: flex;
+  flex-direction: row;
+}
+
+
+
 .App-body {
   background-color: #282c34;
   min-height: 90vh;
@@ -26,7 +35,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
