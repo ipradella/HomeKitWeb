@@ -19,6 +19,10 @@
   color: white;
 }
 
+.App-header-date {
+  font-size: 13px;
+}
+
 .button-background {background-color:#ADC7C9;}
 
 .App-toolbar-Graph {
