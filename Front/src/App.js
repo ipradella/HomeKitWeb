@@ -31,6 +31,10 @@ randomNumber(min, max){
   return Math.floor(Math.random()*(max-min+1)+min)
 }
 
+handleChange = data => {
+  console.log(data);
+  this.setState({startDate: data},);
+}
 render() {
 
   return (
