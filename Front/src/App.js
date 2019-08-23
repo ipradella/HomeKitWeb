@@ -2,8 +2,11 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { LineChart, Line, Legend, CartesianGrid,  XAxis, YAxis } from 'recharts';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import fr from 'date-fns/locale/fr';
 import "react-datepicker/dist/react-datepicker.css"
+
+registerLocale('fr', fr);
 
 class App extends React.Component {
 
@@ -11,6 +14,8 @@ state = {
   startDate:  new Date(),
   data: this.generateDataTemperature(),
 }
+
+
 
 generateDataTemperature(){
   const totalHours = 24;
@@ -49,7 +54,9 @@ render() {
         </div>
         <DatePicker className="App-header-date"
             selected={this.state.startDate}
-            onChange={this.handleChange} />
+            onChange={this.handleChange} 
+            dateFormat="d MMMM yyyy"
+            locale="fr"/>
       </header>
       <body className="App-body">
 
