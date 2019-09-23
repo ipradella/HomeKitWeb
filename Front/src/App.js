@@ -2,31 +2,46 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { LineChart, Line, Legend, CartesianGrid,  XAxis, YAxis } from 'recharts';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import fr from 'date-fns/locale/fr';
+import "react-datepicker/dist/react-datepicker.css"
+
+registerLocale('fr', fr);
+
+class App extends React.Component {
+
+state = {
+  startDate:  new Date(),
+  data: this.generateDataTemperature(),
+}
 
 
-function generateDataTemperature(){
+
+generateDataTemperature(){
   const totalHours = 24;
   const totalMinuts = totalHours*60;
   const data = [];
 
   for(var min = 0; min < totalMinuts; min++){ 
     if(Number.isInteger(min/180))
-      data.push({name: min/60 + ':00', Int: randomNumber(16,23), Ext: randomNumber(5,10)});
+      data.push({name: min/60 + ':00', Int: this.randomNumber(16,23), Ext: this.randomNumber(5,10)});
     else if(Number.isInteger(min/60))
-      data.push({Int: randomNumber(16,23), Ext: randomNumber(5,10)});
+      data.push({Int: this.randomNumber(16,23), Ext: this.randomNumber(5,10)});
   };
 
   return data;
 } 
 
-function randomNumber(min, max){
+randomNumber(min, max){
   return Math.floor(Math.random()*(max-min+1)+min)
 }
 
-const data = generateDataTemperature();
+handleChange = data => {
+  console.log(data);
+  this.setState({startDate: data},);
+}
+render() {
 
-function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -37,11 +52,15 @@ function App() {
           <button type="button" class="btn btn-secondary button-background">Year</button>
           <button type="button" class="btn btn-secondary button-background">Years</button>
         </div>
-        <DatePicker/>
+        <DatePicker className="App-header-date"
+            selected={this.state.startDate}
+            onChange={this.handleChange} 
+            dateFormat="d MMMM yyyy"
+            locale="fr"/>
       </header>
       <body className="App-body">
 
-        <LineChart className="App-chart" width={1000} height={500} data={data}>
+        <LineChart className="App-chart" width={1000} height={500} data={this.state.data}>
           <Line type="monotone" dataKey="Int" stroke="yellow" />
           <Line type="monotone" dataKey="Ext" stroke="lightblue" />
           <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="lightgrey" />
@@ -52,6 +71,7 @@ function App() {
       </body>
     </div>
   );
+}
 }
 
 export default App;
