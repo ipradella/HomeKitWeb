@@ -1,14 +1,14 @@
-.App {
+.History {
   text-align: center;
 }
 
-.App-logo {
+.History-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 4vmin;
   pointer-events: none;
 }
 
-.App-header {
+.History-header {
   background-color: #282c34;
   min-height: 10vh;
   display: flex;
@@ -19,20 +19,20 @@
   color: white;
 }
 
-.App-header-date {
+.History-header-date {
   font-size: 13px;
 }
 
 .button-background {background-color:#ADC7C9;}
 
-.App-toolbar-Graph {
+.History-toolbar-Graph {
   display: flex;
   flex-direction: row;
 }
 
 
 
-.App-body {
+.History-body {
   background-color: #282c34;
   min-height: 90vh;
   display: center;
@@ -42,17 +42,17 @@
   color: white;
 }
 
-.App-chart {
+.History-chart {
   display: block;
   margin-left: auto;
   margin-right: auto
 }
 
-.App-link {
+.History-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@keyframes History-logo-spin {
   from {
     transform: rotate(0deg);
   }

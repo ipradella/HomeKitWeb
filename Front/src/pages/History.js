@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../logo.svg';
+import './History.css';
 import { LineChart, Line, Legend, CartesianGrid,  XAxis, YAxis } from 'recharts';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css"
 
 registerLocale('fr', fr);
 
-class App extends React.Component {
+class History extends React.Component {
 
 state = {
   startDate:  new Date(),
@@ -23,8 +23,10 @@ generateDataTemperature(){
   const data = [];
 
   for(var min = 0; min < totalMinuts; min++){ 
+    // Add tag every 180 min 
     if(Number.isInteger(min/180))
       data.push({name: min/60 + ':00', Int: this.randomNumber(16,23), Ext: this.randomNumber(5,10)});
+    // Push Value every 30 min
     else if(Number.isInteger(min/60))
       data.push({Int: this.randomNumber(16,23), Ext: this.randomNumber(5,10)});
   };
@@ -43,24 +45,24 @@ handleChange = data => {
 render() {
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="History">
+      <header className="History-header">
+        <img src={logo} className="History-logo" alt="logo" />
         <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-secondary button-background">Day</button>
           <button type="button" class="btn btn-secondary button-background">Month</button>
           <button type="button" class="btn btn-secondary button-background">Year</button>
           <button type="button" class="btn btn-secondary button-background">Years</button>
         </div>
-        <DatePicker className="App-header-date"
+        <DatePicker className="History-header-date"
             selected={this.state.startDate}
             onChange={this.handleChange} 
             dateFormat="d MMMM yyyy"
             locale="fr"/>
       </header>
-      <body className="App-body">
+      <body className="History-body">
 
-        <LineChart className="App-chart" width={1000} height={500} data={this.state.data}>
+        <LineChart className="History-chart" width={1000} height={500} data={this.state.data}>
           <Line type="monotone" dataKey="Int" stroke="yellow" />
           <Line type="monotone" dataKey="Ext" stroke="lightblue" />
           <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="lightgrey" />
@@ -74,4 +76,4 @@ render() {
 }
 }
 
-export default App;
+export default History;
