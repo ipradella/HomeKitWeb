@@ -1,3 +1,6 @@
+# HomeKitWeb
+Web environment to set up an monitor connected devices
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -66,3 +69,17 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Install Nginx
+ (https://korben.info/configurer-nginx-reverse-proxy.html)
+
+- sudo apt-get update (update ref package)
+- sudo apt-get install nginx
+- vi /etc/nginx/nginx.conf
+- ajouter a la fin du fichier :
+	include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+
+## Install SQLLite
+
+- sqlite3 [dbName].db
