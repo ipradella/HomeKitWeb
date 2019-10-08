@@ -1,7 +1,6 @@
 import React from 'react';
 import './Home.css';
 import axios from 'axios';
-import { CircleSlider } from "react-circle-slider";
 
 class Home extends React.Component {
 

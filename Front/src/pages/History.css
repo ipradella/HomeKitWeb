@@ -9,7 +9,6 @@
 }
 
 .History-header {
-  background-color: #282c34;
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -33,7 +32,6 @@
 
 
 .History-body {
-  background-color: #282c34;
   min-height: 90vh;
   display: center;
   flex-direction: column;

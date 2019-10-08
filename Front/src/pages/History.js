@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../logo.svg';
 import './History.css';
 import { LineChart, Line, Legend, CartesianGrid,  XAxis, YAxis } from 'recharts';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -47,18 +46,20 @@ render() {
   return (
     <div className="History">
       <header className="History-header">
-        <img src={logo} className="History-logo" alt="logo" />
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-secondary button-background">Day</button>
-          <button type="button" class="btn btn-secondary button-background">Month</button>
-          <button type="button" class="btn btn-secondary button-background">Year</button>
-          <button type="button" class="btn btn-secondary button-background">Years</button>
-        </div>
+
         <DatePicker className="History-header-date"
             selected={this.state.startDate}
             onChange={this.handleChange} 
             dateFormat="d MMMM yyyy"
             locale="fr"/>
+                  <nav>
+          <ul class="menu">
+            <li><a className="navlink" href="#!">Day</a></li>
+            <li><a className="navlink" href="#!">Month</a></li>
+            <li><a className="navlink" href="#!">Year</a></li>
+            <li><a className="navlink" href="#!">Years</a></li>
+          </ul>
+        </nav>
       </header>
       <body className="History-body">
 

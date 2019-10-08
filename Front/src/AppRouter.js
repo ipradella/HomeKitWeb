@@ -12,7 +12,6 @@ function AppRouter() {
             <li><NavLink className="navlink" to="/">Home</NavLink></li>
             <li><NavLink className="navlink" to="/history/">History</NavLink></li>
             <li><NavLink className="navlink" to="#!">Program</NavLink></li>
-            <li><NavLink className="navlink" to="#!">Faq</NavLink></li>
           </ul>
         </nav>
         <Route path="/" exact component={Home} />
