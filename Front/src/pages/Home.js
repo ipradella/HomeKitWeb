@@ -1,28 +1,46 @@
 import React from 'react';
 import './Home.css';
 import axios from 'axios';
+import { CircleSlider } from "react-circle-slider";
 
 class Home extends React.Component {
 
   state = {
     insideTemp: 'N/A',
+    desiredTemp: 'N/A',
+    value: 0,
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3001/inside`)
+    axios.get(`http://localhost:3001/temperature/inside`)
       .then(res => {
         console.log(res);
         this.setState({ insideTemp: res.data });
-      })
+      });
+      axios.get(`http://localhost:3001/temperature/desired`)
+      .then(res => {
+        console.log(res);
+        this.setState({ desiredTemp: res.data });
+      });
   }
 
 render() {
+  var {insideTemp} = this.state;
 
   return (
     <div className="Home">
-        <div className="selector">
-          <button><span>{this.state.insideTemp}°C</span><span>Consigne</span></button>
-        </div>
+      <div class="single-chart">
+        <svg viewBox="0 0 36 36" class="circular-chart orange">
+          <path class="circle-bg"
+            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+          />
+          <path class="circle"
+            stroke-dasharray="80, 100"
+            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+          />
+          <text x="18" y="20.35" class="inside">{insideTemp}°C</text>
+        </svg>
+      </div>
     </div>
   );
 }
