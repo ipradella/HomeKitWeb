@@ -12,7 +12,10 @@
   margin-top: -70px;
   margin-left: -70px;
 }
-
+.selector span 
+{
+    display: block;
+}
 .selector button {
   position: relative;
   width: 100%;

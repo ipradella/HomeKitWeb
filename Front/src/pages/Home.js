@@ -4,10 +4,15 @@ import axios from 'axios';
 
 class Home extends React.Component {
 
+  state = {
+    insideTemp: 'N/A',
+  }
+
   componentDidMount() {
-    axios.get(`https://localhost:3001/inside`)
+    axios.get(`http://localhost:3001/inside`)
       .then(res => {
-        this.setState({ insideTemp: res });
+        console.log(res);
+        this.setState({ insideTemp: res.data });
       })
   }
 
@@ -15,8 +20,8 @@ render() {
 
   return (
     <div className="Home">
-        <div class="selector">
-          <button>{this.State.insideTemp} Consigne</button>
+        <div className="selector">
+          <button><span>{this.state.insideTemp}°C</span><span>Consigne</span></button>
         </div>
     </div>
   );
