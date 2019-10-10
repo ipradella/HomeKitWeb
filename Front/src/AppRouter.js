@@ -8,7 +8,7 @@ function AppRouter() {
   return (
     <Router>
         <nav>
-          <ul class="menu">
+          <ul className="menu">
             <li><NavLink className="navlink" to="/">Home</NavLink></li>
             <li><NavLink className="navlink" to="/history/">History</NavLink></li>
             <li><NavLink className="navlink" to="#!">Program</NavLink></li>
