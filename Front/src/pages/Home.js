@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.css';
-import axios from 'axios';
+import Temperature from '../Api/Temperature';
+import Weather from '../Api/Weather';
 
 class Home extends React.Component {
 
@@ -11,16 +12,11 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3001/temperature/inside`)
-      .then(res => {
-        console.log(res);
-        this.setState({ insideTemp: res.data });
-      });
-      axios.get(`http://localhost:3001/temperature/desired`)
-      .then(res => {
-        console.log(res);
-        this.setState({ desiredTemp: res.data });
-      });
+    this.setState({ 
+      insideTemp: Temperature.getInsideTemperature(),
+      desiredTemp: Temperature.getDesiredTemperature(),
+      weather: Weather.getLocalWeather()
+     });
   }
 
 render() {
