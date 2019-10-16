@@ -41,8 +41,9 @@
 }
 
 .circular-chart.orange .circle {
-  stroke: #ff9f00;
+  stroke: #ffd000e0;
 }
+
 
 .inside-text {
   fill: #666;
@@ -52,6 +53,15 @@
 }
 .inside-picture {
   text-anchor: middle;
+}
+
+.outside-text {
+  color: #666;
+  font-family: sans-serif;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .flex-wrapper {
