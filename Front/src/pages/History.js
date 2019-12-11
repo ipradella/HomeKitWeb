@@ -64,11 +64,11 @@ render() {
       <body className="History-body">
 
         <LineChart className="History-chart" width={1000} height={500} data={this.state.data}>
-          <Line type="monotone" dataKey="Int" stroke="yellow" />
+          <Line type="monotone" dataKey="Int" stroke="#d94f5c" />
           <Line type="monotone" dataKey="Ext" stroke="lightblue" />
-          <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="lightgrey" />
-          <XAxis dataKey="name" label={{ value: 'Hours', position: 'bottom' }} stroke="#ffffff" opacity={100} />
-          <YAxis label={{ value: '°C', angle: -90, position: 'left' }} stroke="#ffffff" opacity={100}/>
+          <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="black" />
+          <XAxis dataKey="name" label={{ value: 'Hours', position: 'bottom' }} stroke="black" opacity={100} />
+          <YAxis label={{ value: '°C', angle: -90, position: 'left' }} stroke="black" opacity={100}/>
           <Legend verticalAlign="top" height={36}/>
         </LineChart>
       </body>
