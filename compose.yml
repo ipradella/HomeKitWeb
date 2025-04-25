@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb-storage:/var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=adminpass
+      - DOCKER_INFLUXDB_INIT_ORG=my-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-secret-token
+    restart: unless-stopped
+    depends_on: []
+  
+  collector:
+    build: ./weather_client/collector
+    container_name: collector
+    environment:
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_TOKEN=my-secret-token
+      - INFLUX_ORG=my-org
+      - INFLUX_BUCKET=my-bucket
+    depends_on:
+      - influxdb
+
+volumes:
+  influxdb-storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/influxdb
