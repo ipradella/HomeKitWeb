@@ -18,9 +18,11 @@ services:
     restart: unless-stopped
     depends_on: []
   
-  collector:
-    build: ./weather_client/collector
-    container_name: collector
+  weather_collector:
+    build:
+      context: ./weather_client
+      dockerfile: Dockerfile
+    container_name: weather_collector
     environment:
       - INFLUX_URL=http://influxdb:8086
       - INFLUX_TOKEN=my-secret-token

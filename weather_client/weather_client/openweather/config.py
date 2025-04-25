@@ -8,4 +8,3 @@ ANGLEUR =  {
         "lat": 50.611301
     }
 }
-WEATHER_REFRESH_DELAY=60

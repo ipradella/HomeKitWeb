@@ -6,3 +6,6 @@ export DOCKER_INFLUXDB_INIT_PASSWORD="adminpass"
 export DOCKER_INFLUXDB_INIT_ORG="my-org"
 export DOCKER_INFLUXDB_INIT_BUCKET="my-bucket"
 export DOCKER_INFLUXDB_INIT_ADMIN_TOKEN="my-secret-token"
+
+export OPENWEATHER_TOKEN="my-bucket"
+export INFLUXDB_TOKEN="my-secret-token"

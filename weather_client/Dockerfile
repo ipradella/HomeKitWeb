@@ -2,8 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir influxdb-client requests
+COPY weather_client/openweather/ /app/
 
-COPY collector.py .
+RUN pip install --no-cache-dir requests influxdb-client
 
 CMD ["python", "collector.py"]

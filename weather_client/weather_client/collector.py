@@ -1,6 +1,7 @@
 import os
 import time
-import requests
+from weather_client.openweather.weather import getWeather
+from requests.exceptions import HTTPError
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
@@ -12,22 +13,23 @@ INFLUX_BUCKET = os.getenv("INFLUX_BUCKET")
 client = InfluxDBClient(url=INFLUX_URL, token=INFLUX_TOKEN, org=INFLUX_ORG)
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
-API_URL = "https://api.coindesk.com/v1/bpi/currentprice.json"  # exemple public
+getWeather
 
 
 def fetch_and_store():
   try:
-    r = requests.get(API_URL, timeout=5)
-    r.raise_for_status()
-    data = r.json()
+    getWeather()
 
-    usd_price = float(data["bpi"]["USD"]["rate_float"])
-
-    point = Point("bitcoin_price").field("usd", usd_price)
+    point = (
+      Point("weather")
+      .tag("sensor_id", "weatherapi")
+      .tag("location", "outside")
+      .field("temp", 38)
+  )
     write_api.write(bucket=INFLUX_BUCKET, org=INFLUX_ORG, record=point)
-    print(f"✅ Écrit : BTC/USD = {usd_price}")
-  except Exception as e:
-    print(f"❌ Erreur : {e}")
+
+  except HTTPError as e:
+    print(f"❌ Error : {e}")
 
 
 if __name__ == "__main__":

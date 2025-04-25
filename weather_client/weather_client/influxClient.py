@@ -13,7 +13,10 @@ write_api = client.write_api(write_options=SYNCHRONOUS)
 
 for value in range(5):
   point = (
-      Point("temperature").tag("sensor", "weatherapi").field("field1", value)
+      Point("weather")
+      .tag("sensor_id", "weatherapi")
+      .tag("location", "outside")
+      .field("temp", value)
   )
   write_api.write(bucket=bucket, org=org, record=point)
   time.sleep(1)  # separate points by 1 second
