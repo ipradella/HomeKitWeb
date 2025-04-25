@@ -2,7 +2,7 @@ import requests
 import time
 import os
 
-from config import *
+from Server.weather_client.config import *
 
 api_openweather_base_url = "https://api.openweathermap.org/data/2.5/weather?"
 api_openweather_key = os.environ.get('OPENWEATHER_TOKEN')
@@ -44,8 +44,8 @@ def getWeather(printResult, get_weather_url):
 
 # ==================================================================================================
 
-    def postWeather():
-        print("Insert weather point on influx.")
+def postWeather():
+    print("Insert weather point on influx.")
 
 # ==================================================================================================
     
