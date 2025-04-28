@@ -5,7 +5,6 @@ from weather_client.weather_client.openweather.config import ANGLEUR
 
 api_openweather_base_url = "https://api.openweathermap.org/data/2.5/weather?"
 api_openweather_key = os.environ.get("OPENWEATHER_TOKEN")
-api_influxdb_key_ = os.environ.get("INFLUXDB_TOKEN")
 
 local_weather_url = (
     api_openweather_base_url

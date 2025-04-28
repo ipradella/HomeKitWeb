@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY weather_client/openweather/ /app/
+COPY weather_client/ /app/
 
 RUN pip install --no-cache-dir requests influxdb-client
 

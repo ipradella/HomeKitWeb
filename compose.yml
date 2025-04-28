@@ -24,10 +24,11 @@ services:
       dockerfile: Dockerfile
     container_name: weather_collector
     environment:
-      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_URL=http://localhost:8086
       - INFLUX_TOKEN=my-secret-token
       - INFLUX_ORG=my-org
       - INFLUX_BUCKET=my-bucket
+      - OPENWEATHER_TOKEN=a6e51df752a8cc298f2a9a0a2a053617
     depends_on:
       - influxdb
 
@@ -37,4 +38,4 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /mnt/influxdb
+      device: /Volumes/influxdb

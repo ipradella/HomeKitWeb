@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sudo mkdir -p /mnt/influxdb
+sudo mkdir -p /Volumes/influxdb
