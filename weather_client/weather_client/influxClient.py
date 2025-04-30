@@ -1,13 +1,13 @@
-import influxdb_client, os, time
-from influxdb_client import InfluxDBClient, Point, WritePrecision
+import os, time
+from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 token = os.environ.get("DOCKER_INFLUXDB_INIT_ADMIN_TOKEN")
 org = os.environ.get("DOCKER_INFLUXDB_INIT_ORG")
 bucket = os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET")
+url = os.environ.get("INFLUX_URL")
 
-url = "http://localhost:8086"
-client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
+client = InfluxDBClient(url=url, token=token, org=org)
 
 write_api = client.write_api(write_options=SYNCHRONOUS)
 

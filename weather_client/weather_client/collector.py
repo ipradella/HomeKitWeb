@@ -1,6 +1,6 @@
 import os
 import time
-from weather_client.openweather.weather import getWeather
+from openweather.weather import getWeather
 from requests.exceptions import HTTPError
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
@@ -21,11 +21,11 @@ def fetch_and_store():
     getWeather()
 
     point = (
-      Point("weather")
-      .tag("sensor_id", "weatherapi")
-      .tag("location", "outside")
-      .field("temp", 38)
-  )
+        Point("weather")
+        .tag("sensor_id", "weatherapi")
+        .tag("location", "outside")
+        .field("temp", 38)
+    )
     write_api.write(bucket=INFLUX_BUCKET, org=INFLUX_ORG, record=point)
 
   except HTTPError as e:

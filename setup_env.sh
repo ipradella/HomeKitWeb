@@ -7,5 +7,5 @@ export DOCKER_INFLUXDB_INIT_ORG="my-org"
 export DOCKER_INFLUXDB_INIT_BUCKET="my-bucket"
 export DOCKER_INFLUXDB_INIT_ADMIN_TOKEN="my-secret-token"
 
-export OPENWEATHER_TOKEN="my-bucket"
+export OPENWEATHER_TOKEN="3570f92355ff8c4a67c8c15035254045"
 export INFLUXDB_TOKEN="my-secret-token"
