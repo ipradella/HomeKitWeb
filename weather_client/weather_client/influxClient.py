@@ -8,7 +8,6 @@ bucket = os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET")
 url = os.environ.get("INFLUX_URL")
 
 client = InfluxDBClient(url=url, token=token, org=org)
-
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 for value in range(5):

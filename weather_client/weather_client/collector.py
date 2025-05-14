@@ -13,19 +13,18 @@ INFLUX_BUCKET = os.getenv("INFLUX_BUCKET")
 client = InfluxDBClient(url=INFLUX_URL, token=INFLUX_TOKEN, org=INFLUX_ORG)
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
-getWeather
-
 
 def fetch_and_store():
   try:
-    getWeather()
+    temp = getWeather()
 
     point = (
         Point("weather")
         .tag("sensor_id", "weatherapi")
         .tag("location", "outside")
-        .field("temp", 38)
+        .field("temp", temp)
     )
+    print(INFLUX_BUCKET, INFLUX_ORG)
     write_api.write(bucket=INFLUX_BUCKET, org=INFLUX_ORG, record=point)
 
   except HTTPError as e:

@@ -31,7 +31,7 @@ def printResult(
 def getWeather():
   response = requests.get(local_weather_url)
   response.raise_for_status()
-  response = response.json()  
+  response = response.json()
 
   if response["cod"] == 200:
     main = response["main"]
@@ -52,3 +52,5 @@ def getWeather():
 
   else:
     print(response["message"])
+
+  return current_temperature
