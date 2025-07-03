@@ -1,1 +1,3 @@
 /.venv
+/ruuvi_collector/*.o
+/ruuvi_collector/*.out

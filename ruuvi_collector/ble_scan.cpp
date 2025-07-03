@@ -7,9 +7,8 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
-void print_beacon_info(uint8_t *data, int len) {
-    // Example: parse iBeacon (Apple format)
-    if (len < 30) return; // minimal length check
+void print_beacon_info(uint8_t *data, size_t len) {
+    if (len < 30) return;
 
     uint8_t ibeacon_prefix[] = {
         0x02, 0x01, 0x06,
@@ -18,7 +17,7 @@ void print_beacon_info(uint8_t *data, int len) {
     };
 
     if (memcmp(data, ibeacon_prefix, sizeof(ibeacon_prefix)) != 0) {
-        return; // Not an iBeacon
+        return;
     }
 
     char uuid[37];
@@ -30,44 +29,60 @@ void print_beacon_info(uint8_t *data, int len) {
              data[17], data[18],
              data[19], data[20], data[21], data[22], data[23], data[24]);
 
-    int16_t major = (data[25] << 8) + data[26];
-    int16_t minor = (data[27] << 8) + data[28];
-    int8_t tx_power = (int8_t)data[29];
+    int major = (data[25] << 8) | data[26];
+    int minor = (data[27] << 8) | data[28];
+    int8_t tx_power = static_cast<int8_t>(data[29]);
 
     std::cout << "iBeacon Detected:\n";
     std::cout << "  UUID:  " << uuid << "\n";
     std::cout << "  Major: " << major << ", Minor: " << minor << "\n";
-    std::cout << "  TX Power: " << (int)tx_power << " dBm\n";
+    std::cout << "  TX Power: " << static_cast<int>(tx_power) << " dBm\n";
 }
 
 int main() {
-    int device_id = hci_get_route(nullptr);
-    if (device_id < 0) {
-        std::cerr << "Error: No Bluetooth device found.\n";
+    int dev_id = hci_get_route(nullptr);
+    if (dev_id < 0) {
+        std::cerr << "No Bluetooth adapter found.\n";
         return 1;
     }
+    else {
+        std::cout << "Using Bluetooth adapter ID: " << dev_id << "\n";
+    }
 
-    int sock = hci_open_dev(device_id);
+    int sock = hci_open_dev(dev_id);
     if (sock < 0) {
-        std::cerr << "Error: Cannot open HCI device.\n";
+        std::cerr << "Failed to open Bluetooth device.\n";
         return 1;
+    }
+    else {
+        std::cout << "Bluetooth device opened successfully.\n";
     }
 
     // Set BLE scan parameters
-    le_set_scan_parameters_cp scan_params = { 0x01, htobs(0x10), htobs(0x10), 0x00, 0x00, 0x00 };
-    if (hci_le_set_scan_parameters(sock, &scan_params, 1000) < 0) {
-        std::cerr << "Error: Cannot set scan parameters.\n";
+    int return_code = hci_le_set_scan_parameters(sock,
+                                   0x01,              // active scanning
+                                   htobs(0x0010),     // interval
+                                   htobs(0x0010),     // window
+                                   0x00,              // own address type
+                                   0x00,              // filter policy
+                                   1000);
+
+    if (return_code < 0) {
+        std::cerr << "Failed to set scan parameters.\n";
+        std::cerr << "Retunr Code: " << return_code << "\n";
+        perror("hci_le_set_scan_parameters");
         close(sock);
         return 1;
     }
 
+    // Enable scanning
     if (hci_le_set_scan_enable(sock, 0x01, 0x00, 1000) < 0) {
-        std::cerr << "Error: Cannot enable scan.\n";
+        std::cerr << "Failed to enable scan.\n";
         close(sock);
         return 1;
     }
 
-    std::cout << "Scanning BLE devices (Ctrl+C to stop)...\n";
+    std::cout << "Scanning BLE devices... Press Ctrl+C to stop.\n";
 
     uint8_t buf[HCI_MAX_EVENT_SIZE];
     while (true) {
@@ -83,7 +98,7 @@ int main() {
         ba2str(&info->bdaddr, addr);
 
         std::cout << "\nDevice: " << addr
-                  << "  RSSI: " << (int8_t)info->data[info->length] << " dBm\n";
+                  << "  RSSI: " << static_cast<int8_t>(info->data[info->length]) << " dBm\n";
 
         print_beacon_info(info->data, info->length);
     }
